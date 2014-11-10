@@ -6,12 +6,9 @@ app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response) {
     if (request.method == "POST") {
-        console.log("Post request\n\n\n\n");
-        console.dir(req.body);
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end('thanks');
+        response.send("Go away");
     } else {
-        response.send('Hello World!');
+        response.send('Hello World\n - Sean!');
     }
 })
 
