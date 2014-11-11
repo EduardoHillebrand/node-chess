@@ -28,7 +28,7 @@ app.post('/get-move', function(request, response) {
     var turn = request.param('turn');
     var move = chess.getBestMove(turn, board);
 
-    response.send(move);
+    response.send('{"move": "' + move + '"}');
 })
 
 app.listen(app.get('port'), function() {
