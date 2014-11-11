@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-# node-js-getting-started
+# Node.js Chess Server
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
-
-This application support the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
 
 ## Running Locally
 
@@ -28,16 +25,13 @@ $ heroku open
 
 ## Documentation
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
+This is a Node.js chess server for Sean Scofield, Frank Lu, and Arthur Jeng's Berkeley EE149 Final Project. It provides a basic REST api service for getting the best move from a given chess board configuration.
 
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
-=======
-node-chess
-==========
+In order to get the best possible move for a given chess board configuration (assuming this server is running on a url titled <url>) one can send a post request to "<url>/get-move" with something like the following information:
 
-Node js chess server for ee149 project
->>>>>>> f1fcf2d67e76cc12ae815b3ced0aa83fed97d0ae
+  {"board": "RNBKQBNR\nPPPPPPPq\n        \n        \n        \n        \npppppppp\nrnbkqbnr",
+   "turn": "white"}
+   
+The response from the server will look like this:
+
+  {"move": "H1H2"}
