@@ -31,10 +31,10 @@ In order to get the best possible move for a given chess board configuration (as
 
   {"board": "RNBKQBNR\nPPPPPPPq\n\        \n        \n        \n        \npppppppp\nrnbkqbnr",
    "turn": "white"}
-   
-(Although it is not visible above, there should be a space for each empty square on the board). 
+
+(Although it is not visible above, there should be a space for each empty square on the board).
 The response from the server will look like this:
 
   {"move": "H1H2"}
-  
+
 **Currently, this app is running at https://agile-chamber-7384.herokuapp.com/**
