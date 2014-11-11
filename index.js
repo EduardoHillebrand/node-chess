@@ -24,9 +24,11 @@ app.get('/', function(request, response) {
 
 app.post('/get-move', function(request, response) {
     console.log(request.body.board);
-    var board = chess.getBoardFromHash(request.param('board'));
-    var turn = request.param('turn');
+    var board = chess.getBoardFromHash(request.body.board);
+    var turn = request.body.turn;
+    chess.printBoard(board);
     var move = chess.getBestMove(turn, board);
+
 
     response.send('{"move": "' + move + '"}');
 })

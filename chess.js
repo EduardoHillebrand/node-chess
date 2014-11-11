@@ -1,6 +1,5 @@
 var fs = require("fs");
 var vm = require('vm');
-
 var prompt = require("prompt");
 
 vm.runInThisContext(fs.readFileSync("tools.js"));
@@ -22,14 +21,14 @@ function getBoardFromHash(hash) {
 
 /** Generates the chess board. */
 function generateBoard() {
-    return  [["R", "N", "B", "K", "Q", "B", "N", "R"],
-             ["P", "P", "P", "P", "P", "P", "P", "P"],
-             [" ", " ", " ", " ", " ", " ", " ", " "],
-             [" ", " ", " ", " ", " ", " ", " ", " "],
-             [" ", " ", " ", " ", " ", " ", " ", " "],
-             [" ", " ", " ", " ", " ", " ", " ", " "],
-             ["p", "p", "p", "p", "p", "p", "p", "p"],
-             ["r", "n", "b", "k", "q", "b", "n", "r"]];
+    return [["R", "N", "B", "K", "Q", "B", "N", "R"],
+            ["P", "P", "P", "P", "P", "P", "P", "P"],
+            [" ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " "],
+            ["p", "p", "p", "p", "p", "p", "p", "p"],
+            ["r", "n", "b", "k", "q", "b", "n", "r"]];
 }
 
 /** Prints BOARD to the standard output */
@@ -60,11 +59,11 @@ function boardAsString(board) {
 }
 
 function oppositeColor(color) {
-    if (color == "white") {
-        return "black";
-    } else {
-        return "white";
-    }
+        if (color == "white") {
+            return "black";
+        } else {
+            return "white";
+        }
 }
 
 /** Returns the color of the piece on square SQUARE (i.e. "white"). */
@@ -75,11 +74,11 @@ function colorOfSquare(square, board) {
     if (i < 0 || i > 7 || j < 0 || j > 7) {
         return null;
     }
-    return colorOfPiece(board[i][j]);
+    return pieceColor(board[i][j]);
 }
 
 /** Returns the color of the piece as a string. */
-function colorOfPiece(piece) {
+function pieceColor(piece) {
     if (piece == " ") {
         return null;
     } else if (piece.charCodeAt(0) < 97) {
@@ -91,9 +90,7 @@ function colorOfPiece(piece) {
 
 /** Returns the number of points PIECE is worth. */
 function valOfPiece(piece) {
-    if (piece == " ") {
-        return 0;
-    } else if (piece == "P" || piece == "p") {
+    if (piece == "P" || piece == "p") {
         return 1;
     } else if (piece == "N" || piece == "n") {
         return 3;
@@ -105,6 +102,8 @@ function valOfPiece(piece) {
         return 9;
     } else if (piece == "Q" || piece == "q") {
         return 9;
+    } else {
+        return 0;
     }
 }
 
@@ -143,8 +142,8 @@ function getSquareFromPos(pos) {
   * false otherwise. */
 function isLegal(move, color, board) {
     var sliced = move.slice(1);
-    var indexOfSecondLetter = sliced.search("\\w") + 2;
-    var newSquare = move.slice(indexOfSecondLetter);
+    var indOfSecondLetter = sliced.search("\\w") + 2;
+    var newSquare = move.slice(indOfSecondLetter);
     var pos = getPosFromSquare(newSquare);
     var i = pos[0];
     var j = pos[1];
@@ -170,9 +169,7 @@ function generateMovesForSquare(square, color, board) {
     var j = pos[1];
     var piece = board[i][j];
 
-    if (getPieceType(piece) == null) {
-        return [];
-    } else if (getPieceType(piece) == "pawn") {
+    if (getPieceType(piece) == "pawn") {
         return genPawnMoves(square, color, board);
     } else if (getPieceType(piece) == "knight") {
         return genKnightMoves(square, color, board);
@@ -184,6 +181,8 @@ function generateMovesForSquare(square, color, board) {
         return genQueenMoves(square, color, board);
     } else if (getPieceType(piece) == "king") {
         return genKingMoves(square, color, board);
+    } else {
+        return [];
     }
 }
 
@@ -191,15 +190,13 @@ function generateMovesForSquare(square, color, board) {
 function generatePossibleMoves(color, board) {
     var moves = [];
     var curSquare;
-    var curMoves;
 
     // iterate through each piece on the board.
     for (var i = 0; i < board.length; i += 1) {
         for (var j = 0; j < board[i].length; j += 1) {
-            if (colorOfPiece(board[i][j]) == color) {
+            if (pieceColor(board[i][j]) == color) {
                 curSquare = getSquareFromPos([i, j]);
-                curMoves = generateMovesForSquare(curSquare, color, board);
-                moves.extend(curMoves);
+                moves.extend(generateMovesForSquare(curSquare, color, board));
             }
         }
     }
@@ -209,10 +206,10 @@ function generatePossibleMoves(color, board) {
 /** Makes move MOVE, regardless of whether it is legal. */
 function makeMove(move, board) {
     var sliced = move.slice(1);
-    var indexOfSecondLetter = sliced.search("\\w") + 2;
+    var indOfSecondLetter = sliced.search("\\w") + 2;
 
-    var oldSquare = move.slice(0, indexOfSecondLetter);
-    var newSquare = move.slice(indexOfSecondLetter);
+    var oldSquare = move.slice(0, indOfSecondLetter);
+    var newSquare = move.slice(indOfSecondLetter);
 
     var pos_new = getPosFromSquare(newSquare);
     var pos_old = getPosFromSquare(oldSquare);
@@ -222,7 +219,7 @@ function makeMove(move, board) {
     var i_old = pos_old[0];
     var j_old = pos_old[1];
 
-    // pushes a copy of this board to the stack, so that we can undo moves later
+    // pushes a copy of this board to the stack
     stack.push(board.clone());
 
     var tmp = board[i_old][j_old];
@@ -242,26 +239,24 @@ function scoreBoard(board, color) {
     var pts = 0;
     for (var i = 0; i < board.length; i += 1) {
         for (var j = 0; j < board[i].length; j += 1) {
-            if (colorOfPiece(board[i][j]) == color) {
+            if (pieceColor(board[i][j]) == color) {
                 pts += valOfPiece(board[i][j]);
-            } else if (colorOfPiece(board[i][j]) != null) {
+            } else if (pieceColor(board[i][j]) != null) {
                 pts -= valOfPiece(board[i][j]);
             }
         }
     }
-
     return pts;
 }
 
 /** Returns the best move for player with COLOR on board BOARD. */
 function getBestMove(color, board) {
-    moves = generatePossibleMoves(color, board);
+    var moves = generatePossibleMoves(color, board);
     if (moves.length == 0) {
         console.log("NO MOVES");
         return null;
     }
     var best = moves[0];
-
     board = makeMove(best, board);
     var bestScore = alphabeta(board, 3, -999999, 999999, oppositeColor(color), true);
     board = undoMove();
@@ -283,9 +278,7 @@ function alphabeta(board, depth, alpha, beta, color, maximizingPlayer) {
     if (depth == 0) {
         return scoreBoard(board, color);
     }
-
     var moves = generatePossibleMoves(color, board);
-
     if (maximizingPlayer) {
         for (var i = 0; i < moves.length; i += 1) {
             board = makeMove(moves[i], board);
@@ -309,43 +302,12 @@ function alphabeta(board, depth, alpha, beta, color, maximizingPlayer) {
     }
 }
 
-function play() {
-    var possibleMoves;
-    var board = generateBoard();
-    printBoard(board);
-    var move;
-    var turn = 1;
-
-    function turnStart() {
-        if (turn) {
-            possibleMoves = generatePossibleMoves("white", board);
-            prompt.start();
-            prompt.get(["move"], function(err, result) {
-                board = makeMove(result.move, board);
-                printBoard(board);
-
-                turn = 0;
-                turnStart();
-            });
-        } else {
-            move = getBestMove("black", board.clone());
-            board = makeMove(move, board);
-            printBoard(board);
-            console.log("Computer moves " + move + "\n");
-            turn = 1;
-            turnStart();
-        }
-    }
-
-    turnStart();
-}
-
 module.exports.generateBoard = generateBoard;
 module.exports.printBoard = printBoard;
 module.exports.boardAsString = boardAsString;
 module.exports.oppositeColor = oppositeColor;
 module.exports.colorOfSquare = colorOfSquare;
-module.exports.colorOfPiece = colorOfPiece;
+module.exports.pieceColor = pieceColor;
 module.exports.valOfPiece = valOfPiece;
 module.exports.getPieceType = getPieceType;
 
@@ -361,5 +323,4 @@ module.exports.scoreBoard = scoreBoard;
 
 module.exports.getBestMove = getBestMove;
 module.exports.alphabeta = alphabeta;
-module.exports.play = play;
 module.exports.getBoardFromHash = getBoardFromHash;
