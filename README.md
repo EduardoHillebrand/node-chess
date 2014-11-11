@@ -27,7 +27,7 @@ $ heroku open
 
 This is a Node.js chess server for Sean Scofield, Frank Lu, and Arthur Jeng's Berkeley EE149 Final Project. It provides a basic REST api service for getting the best move from a given chess board configuration.
 
-In order to get the best possible move for a given chess board configuration (assuming this server is running on a url titled <url>) one can send a post request to "<url>/get-move" with something like the following information:
+In order to get the best possible move for a given chess board configuration (assuming this server is running on a url titled \<url\>) one can send a post request to "\<url\>/get-move" with something like the following information:
 
   {"board": "RNBKQBNR\nPPPPPPPq\n        \n        \n        \n        \npppppppp\nrnbkqbnr",
    "turn": "white"}
