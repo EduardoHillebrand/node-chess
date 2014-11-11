@@ -29,7 +29,7 @@ This is a Node.js chess server for Sean Scofield, Frank Lu, and Arthur Jeng's Be
 
 In order to get the best possible move for a given chess board configuration (assuming this server is running on a url titled \<url\>) one can send a post request to "\<url\>/get-move" with something like the following information:
 
-  {"board": "RNBKQBNR\nPPPPPPPq\n        \n        \n        \n        \npppppppp\nrnbkqbnr",
+  {"board": "RNBKQBNR\nPPPPPPPq\n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ \npppppppp\nrnbkqbnr",
    "turn": "white"}
    
 The response from the server will look like this:
