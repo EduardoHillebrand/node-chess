@@ -1,6 +1,6 @@
 # Node.js Chess Server
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+A Node.js app built using [Express 4](http://expressjs.com/).
 
 ## Running Locally
 
@@ -25,16 +25,15 @@ $ heroku open
 
 ## Documentation
 
-This is a Node.js chess server for Sean Scofield, Frank Lu, and Arthur Jeng's Berkeley EE149 Final Project. It provides a basic REST api service for getting the best move from a given chess board configuration.
+This is a Node.js server that can provide hints for a player during a chess game. Sending a GET request to this server with the current configuration of a chess board and the color whose turn it is will cause the server to respond with a good move for that color.
 
-In order to get the best possible move for a given chess board configuration (assuming this server is running on a url titled \<url\>) one can send a post request to "\<url\>/get-move" with something like the following information:
+*Formatting the request*
+Assuming that this server is running on a url titled \<url\>, one can obtain a hint with a request in a format similar to the following:
 
-  {"board": "RNBKQBNR\nPPPPPPPq\n\        \n        \n        \n        \npppppppp\nrnbkqbnr",
-   "turn": "white"}
+  \<url\>/get-move?board=RNBQKBNR|PPPPPPPP|--------|--------|--------|--------|pppppppp|rnbqkbnr&color=white
 
-(Although it is not visible above, there should be a space for each empty square on the board).
 The response from the server will look like this:
 
-  {"move": "H1H2"}
+  H1H2
 
-**Currently, this app is running at https://agile-chamber-7384.herokuapp.com/**
+**Currently, this app is running at https://agile-chamber-7384.herokuapp.com/**, so you can try out the above request by clicking this link: https://agile-chamber-7384.herokuapp.com/get-move?board=RNBQKBNR|PPPPPPPP|--------|--------|--------|--------|pppppppp|rnbqkbnr&color=white
